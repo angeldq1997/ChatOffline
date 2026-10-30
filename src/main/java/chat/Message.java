@@ -13,13 +13,13 @@ public class Message implements Serializable {
     private String sender;
     private String receiver;
     private String content;
-    private String date; // ISO-8601, por ejemplo: 2026-10-26T13:45:00
-    private String attachedPath; // Puede ser null si no hay adjunto.
+    private String date;
+    private String attachedPath;
     private String attachedName;
     private long attachedSize = 0;
     private String attachedType;
 
-    public Message() { } // JAXB necesita un constructor sin argumentos.
+    public Message() { }
 
     public Message(String sender, String receiver, String content, String date) {
         this.sender = sender;

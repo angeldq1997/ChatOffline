@@ -12,7 +12,7 @@ import java.util.Objects;
 public class User implements Serializable {
     private String name;
 
-    public User() { } // JAXB necesita un constructor sin argumentos.
+    public User() { }
 
     public User(String name) { this.name = name; }
 
