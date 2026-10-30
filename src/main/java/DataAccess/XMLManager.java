@@ -44,8 +44,7 @@ public class XMLManager {
     // TODO Fase 2: write messages.xml usando JAXB.
     public void writeMessages(MessageList messages, String path) throws JAXBException {
         try{
-            JAXBContext context =
-                    JAXBContext.newInstance(MessageList.class);
+            JAXBContext context = JAXBContext.newInstance(MessageList.class);
             Marshaller marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
             marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
@@ -62,7 +61,7 @@ public class XMLManager {
         File file = new File("messages.xml");
         if ( file.exists() && !file.isDirectory() ){
             try {
-                JAXBContext context = JAXBContext.newInstance(Message.class);
+                JAXBContext context = JAXBContext.newInstance(MessageList.class);
                 Unmarshaller reader = context.createUnmarshaller();
                 messages = (MessageList) reader.unmarshal(file);
             } catch (JAXBException e) {

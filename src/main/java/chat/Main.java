@@ -66,27 +66,7 @@ public class Main {
 
                 //Add file
                 case 6 -> {
-                    try {
-                        System.out.println("Enter your username: ");
-                        String sender = keyboard.next();
-                        System.out.println("Enter the username of the receiver: ");
-                        String receiver = keyboard.next();
-                        if (chat.findUser(sender) == null ){
-                            System.out.println("Your username doesn't exists");
-                        } else if ( chat.findUser(receiver) == null ) {
-                            System.out.println("The receiver entered doesn't exists");
-                        } else {
-                            keyboard.nextLine();
-                            System.out.println("Introduce the path to read the image to attach:");
-                            String pathOfImage = keyboard.nextLine();
-                            Message message = chat.getLastMessage(sender, receiver);
-                            chat.attachFile(message, Path.of(pathOfImage));
-                        }
-                    } catch (JAXBException | InputMismatchException e){
-                        System.out.println(e.getMessage());
-                    } catch (IOException e) {
-                        System.out.println("The path entered isn't valid");
-                    }
+                    addFile(keyboard, chat);
                 }
                 //ERROR for trying to evade user errors
                 default -> {
@@ -95,6 +75,30 @@ public class Main {
             }
         }while (option != 0);
         keyboard.close();
+    }
+
+    private static void addFile(Scanner keyboard, ChatManager chat) {
+        try {
+            System.out.println("Enter your username: ");
+            String sender = keyboard.next();
+            System.out.println("Enter the username of the receiver: ");
+            String receiver = keyboard.next();
+            if (chat.findUser(sender) == null ){
+                System.out.println("Your username doesn't exists");
+            } else if ( chat.findUser(receiver) == null ) {
+                System.out.println("The receiver entered doesn't exists");
+            } else {
+                keyboard.nextLine();
+                System.out.println("Introduce the path to read the image to attach:");
+                String pathOfImage = keyboard.nextLine();
+                Message message = chat.getLastMessage(sender, receiver);
+                chat.attachFile(message, Path.of(pathOfImage));
+            }
+        } catch (JAXBException | InputMismatchException e){
+            System.out.println(e.getMessage());
+        } catch (IOException e) {
+            System.out.println("The path entered isn't valid");
+        }
     }
 
     private static void sendMessage(Scanner keyboard, ChatManager chat) {
