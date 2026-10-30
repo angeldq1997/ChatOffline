@@ -1,6 +1,5 @@
 package DataAccess;
 
-import chat.Message;
 import chat.MessageList;
 import chat.UserList;
 import jakarta.xml.bind.JAXBContext;
@@ -11,7 +10,9 @@ import jakarta.xml.bind.Unmarshaller;
 import java.io.File;
 
 public class XMLManager {
-    // TODO Fase 1: save users.xml using JAXB (Marshaller).
+    /// Method that stores users on an XML
+    /// @param users that want to be stored
+    /// @throws JAXBException when cannot write the users on the users.xml
     public void writeUsers(UserList users) throws JAXBException {
         try{
             JAXBContext context = JAXBContext.newInstance(UserList.class);
@@ -24,8 +25,9 @@ public class XMLManager {
         }
     }
 
-    // TODO Fase 1: recover users.xml usando JAXB (Unmarshaller).
-    // Si no existe el archivo, devolver una ListaUsuarios vacía.
+    /// Method that reads the users of an XML and get them on a Java List
+    /// @return the list of users
+    /// @throws JAXBException when cannot read the users on the users.xml
     public UserList readUsers() throws JAXBException {
         UserList users = new UserList();
         File file = new File("users.xml");
@@ -41,7 +43,10 @@ public class XMLManager {
         return users;
     }
 
-    // TODO Fase 2: write messages.xml usando JAXB.
+    /// Method that writes the messages on an XML
+    /// @param messages that want to be stored
+    /// @param path of the destination to save the XML
+    /// @throws JAXBException when it can't copy the data from the XML to Java
     public void writeMessages(MessageList messages, String path) throws JAXBException {
         try{
             JAXBContext context = JAXBContext.newInstance(MessageList.class);
@@ -54,8 +59,9 @@ public class XMLManager {
         }
     }
 
-    // TODO Fase 2: recover messages.xml usando JAXB.
-    // Si no existe el archivo, devolver una ListaMensajes vacía.
+    /// Method that read from an XML a list of messages
+    /// @return a list with all the messages
+    /// @throws JAXBException when there is an error reading the XML
     public MessageList readMessages() throws JAXBException {
         MessageList messages =  new MessageList();
         File file = new File("messages.xml");

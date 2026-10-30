@@ -55,8 +55,7 @@ public class Main {
 
                 //Statistics
                 case 4 -> {
-                    //TODO: STATISTICS
-                    //chat.statistics();
+                    statistics(keyboard, chat);
                 }
 
                 //Export conversation
@@ -75,6 +74,25 @@ public class Main {
             }
         }while (option != 0);
         keyboard.close();
+    }
+
+    private static void statistics(Scanner keyboard, ChatManager chat) {
+        try {
+            System.out.println("Enter the username of the sender: ");
+            String sender = keyboard.next();
+            System.out.println("Enter the username of the receiver: ");
+            String receiver = keyboard.next();
+            if (chat.findUser(sender) == null ){
+                System.out.println("The sender doesn't exists");
+            } else if ( chat.findUser(receiver) == null ) {
+                System.out.println("The receiver entered doesn't exists");
+            } else {
+                long total = chat.statistics(sender, receiver);
+                System.out.println("The total of messages is: "+total);
+            }
+        } catch ( JAXBException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     private static void addFile(Scanner keyboard, ChatManager chat) {
