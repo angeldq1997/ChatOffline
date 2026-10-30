@@ -1,5 +1,8 @@
-package chat;
+package DataAccess;
 
+import chat.Message;
+import chat.MessageList;
+import chat.UserList;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
@@ -11,14 +14,11 @@ public class XMLManager {
     // TODO Fase 1: save users.xml using JAXB (Marshaller).
     public void writeUsers(UserList users) throws JAXBException {
         try{
-            JAXBContext context =
-                    JAXBContext.newInstance(UserList.class);
-            Marshaller marshaller =
-                    context.createMarshaller();
-            marshaller.setProperty(
-                    Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            marshaller.marshal(
-                    users, new File("users.xml"));
+            JAXBContext context = JAXBContext.newInstance(UserList.class);
+            Marshaller marshaller = context.createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+            marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
+            marshaller.marshal(users, new File("users.xml"));
         }catch (JAXBException e){
             System.out.println("Error " + e.getMessage());
         }
@@ -46,12 +46,10 @@ public class XMLManager {
         try{
             JAXBContext context =
                     JAXBContext.newInstance(MessageList.class);
-            Marshaller marshaller =
-                    context.createMarshaller();
-            marshaller.setProperty(
-                    Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            marshaller.marshal(
-                    messages, new File(path));
+            Marshaller marshaller = context.createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+            marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
+            marshaller.marshal(messages, new File(path));
         }catch (JAXBException e){
             System.out.println("Error " + e.getMessage());
         }
@@ -69,6 +67,7 @@ public class XMLManager {
                 messages = (MessageList) reader.unmarshal(file);
             } catch (JAXBException e) {
                 System.out.println("Error: " + e.getMessage());
+                e.printStackTrace();
             }
         }
         return messages;

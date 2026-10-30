@@ -146,6 +146,7 @@ public class Main {
         try {
             System.out.println("Enter your username: ");
             String sender = keyboard.next();
+            keyboard.nextLine();
             System.out.println("Enter the username of the receiver: ");
             String receiver = keyboard.next();
             if (chat.findUser(sender) == null ){
@@ -153,7 +154,6 @@ public class Main {
             } else if ( chat.findUser(receiver) == null ) {
                 System.out.println("The receiver entered doesn't exists");
             } else {
-                keyboard.nextLine();
                 List<Message> conversation = chat.checkConversation(sender, receiver);
                 conversation.forEach(System.out::println);
             }

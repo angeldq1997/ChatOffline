@@ -2,16 +2,20 @@ package chat;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlRootElement;
+
+import java.io.Serializable;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Message {
+@XmlRootElement(name = "message")
+public class Message implements Serializable {
     private String sender;
     private String receiver;
     private String content;
     private String date; // ISO-8601, por ejemplo: 2026-10-26T13:45:00
     private String attachedPath; // Puede ser null si no hay adjunto.
     private String attachedName;
-    private long attachedSize;
+    private long attachedSize = 0;
     private String attachedType;
 
     public Message() { } // JAXB necesita un constructor sin argumentos.
@@ -39,4 +43,18 @@ public class Message {
     public void setAttachedSize(long attachedSize) { this.attachedSize = attachedSize; }
     public String getAttachedType() { return attachedType; }
     public void setAttachedType(String attachedType) { this.attachedType = attachedType; }
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                "sender='" + sender + '\'' +
+                ", receiver='" + receiver + '\'' +
+                ", content='" + content + '\'' +
+                ", date='" + date + '\'' +
+                ", attachedPath='" + attachedPath + '\'' +
+                ", attachedName='" + attachedName + '\'' +
+                ", attachedSize=" + attachedSize +
+                ", attachedType='" + attachedType + '\'' +
+                '}';
+    }
 }

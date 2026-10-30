@@ -1,10 +1,10 @@
 package chat;
 
+import DataAccess.XMLManager;
 import jakarta.xml.bind.JAXBException;
 
 import java.io.*;
 import java.nio.file.Path;
-import java.time.LocalTime;
 import java.util.*;
 
 public class ChatManager {
@@ -37,7 +37,7 @@ public class ChatManager {
         } else if ( userList.findUser(userReceiver) == null ){
             System.out.println("The user receiver doesn't exists");
         } else {
-            Message message = new Message(sender, receiver, content, LocalTime.now().toString());
+            Message message = new Message(sender, receiver, content, "TEST");
             MessageList messageList = xmlManager.readMessages();
             if ( messageList.addMessage(message) ){
                 xmlManager.writeMessages(messageList, "messages.xml");
@@ -51,6 +51,7 @@ public class ChatManager {
     // Fase 3: filtrar mensajes en ambos sentidos (A -> B y B -> A).
     public List<Message> checkConversation(String userA, String userB) throws JAXBException {
         MessageList messageList = xmlManager.readMessages();
+        List<Message> messages = new ArrayList<Message>();
         return collectMessages(messageList, userA, userB);
     }
 
