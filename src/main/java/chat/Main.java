@@ -153,9 +153,17 @@ public class Main {
                 System.out.println("The receiver entered doesn't exists");
             } else {
                 keyboard.nextLine();
+                boolean formatText = false;
                 System.out.println("Introduce the path to save the conversation:");
                 String path = keyboard.nextLine();
-                chat.exportConversation(sender, receiver, Path.of(path));
+                keyboard.nextLine();
+                System.out.println("Do you want to export as TXT? (yes/no)");
+                String confirm = keyboard.next();
+                if (confirm.equalsIgnoreCase("Yes")){
+                    formatText = true;
+                }
+                chat.exportConversation(sender, receiver, Path.of(path), formatText);
+                System.out.println("Conversation exported succesfully at: "+path);
             }
         }catch (JAXBException e){
             System.out.println(e.getMessage());

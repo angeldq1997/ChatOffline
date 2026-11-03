@@ -84,12 +84,21 @@ public class ChatManager {
     /// @param destination path of destination for the XML with the conversation
     /// @throws JAXBException when the XML can't be read
     /// @throws IOException when writing on the destination isn't possible
-    public void exportConversation(String userA, String userB, Path destination) throws JAXBException, IOException {
+    public void exportConversation(String userA, String userB, Path destination, boolean formatTxt) throws JAXBException, IOException {
         List<Message> conversation = checkConversation(userA, userB);
         if (!Objects.equals(conversation, new ArrayList<>())) {
             MessageList messageList = new MessageList();
             messageList.setMessages(conversation);
-            xmlManager.writeMessages(messageList, destination.toString());
+            if (formatTxt){
+                try (FileOutputStream fileOutputStream = new FileOutputStream(new File(String.valueOf(destination)))) {
+                    ObjectOutputStream oos = new ObjectOutputStream(fileOutputStream);
+                    oos.writeObject(conversation);
+                }catch (IOException e){
+                    System.out.println(e.getMessage());
+                }
+            } else{
+                xmlManager.writeMessages(messageList, destination.toString());
+            }
         }
     }
 
